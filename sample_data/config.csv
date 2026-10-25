@@ -1,0 +1,6 @@
+key,value
+search_query,label:invoices has:attachment newer_than:30d
+processed_label,invoices-filed
+drive_root_folder_id,FAKE_ROOT_FOLDER_ID
+tolerance_pct,2
+max_threads_per_run,20

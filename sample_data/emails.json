@@ -1,0 +1,5 @@
+[
+ {"id":"m1","thread":"t1","from":"Billing <billing@northpipe.example>","date":"2026-10-03T10:00:00","subject":"Invoice #NP-1041","body":"Hello,\nItem: Copper pipe 15mm | Qty: 10 | Unit price: 12.50\nItem: Elbow fitting 15mm | Qty: 20 | Unit price: 2.10\nThanks","attachments":["NP-1041.pdf"]},
+ {"id":"m2","thread":"t2","from":"ar@maplesupply.example","date":"2026-10-12T09:30:00","subject":"Your invoice","body":"Invoice no. MS-778\nItem: Drywall sheet 4x8 | Qty: 30 | Unit price: 14.60\nItem: Joint compound 5L | Qty: 4 | Unit price: 22.00","attachments":["MS-778.pdf"]},
+ {"id":"m3","thread":"t3","from":"ar@maplesupply.example","date":"2026-09-28T15:00:00","subject":"Invoice #MS-760","body":"Item: Corner bead 8ft | Qty: 12 | Unit price: 3.40","attachments":["MS-760.pdf","MS-760_delivery_note.pdf"]}
+]
