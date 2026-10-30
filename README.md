@@ -1,8 +1,15 @@
-# Gmail invoice filing sample (Google Apps Script)
+# Gmail invoice filing (Google Apps Script)
 
-A small sample for one flow: supplier invoice emails in Gmail are logged in a Google Sheet, their attachments are filed in Drive by vendor and month, and each item price is checked against an expected price list. Price mismatches are marked in the log and copied to a separate tab.
+For bookkeepers or office managers who log supplier invoices and check line prices by hand.
 
-All data here is dummy data. This sample has been checked only with a local Node test that uses stubbed Gmail, Drive and Sheets objects. It has not been run against a real Google account.
+Turns hand-logging supplier invoices and price checks into one scheduled script run.
+
+![Recreated invoice log and sheet tabs from dummy run data](demo/demo.gif)
+![Console output from node tests/local_check.js](demo/local_check.png)
+
+The GIF is a recreated spreadsheet layout (banner: Sample / recreated demo), not a screenshot of a signed-in Google account. The PNG is local mock test output with stubbed Gmail, Drive, and Sheets and dummy suppliers; it is not a real Google account screen.
+
+All names, emails, and files in the repo are dummy data. This project was verified only with `node tests/local_check.js`, not on a live Google account.
 
 ## What it does
 
@@ -28,14 +35,10 @@ All data here is dummy data. This sample has been checked only with a local Node
 
 ## Limits
 
-- Item lines are read with a simple text pattern. Real invoices often put prices only inside the PDF; reading PDF contents (for example through OCR or a vendor-specific format) is not part of this sample.
+- Item lines are read with a simple text pattern. Real invoices often put prices only inside the PDF; reading PDF contents (for example through OCR or a vendor-specific format) is not included here.
 - The vendor name comes from the sender domain. A vendor-to-sender mapping tab would be the next step for vendors that send from shared mail services.
-- Apps Script quotas apply (run time, emails read per day). `max_threads_per_run` keeps each run small.
+- Apps Script quotas apply (run time, Gmail read limits). `max_threads_per_run` keeps each run small.
 - Processed emails are tracked by label and by message ID in the log.
-
-## Demo
-
-`demo/demo.gif` shows recreated sheet screens (Sample / recreated demo) built from the local test results, not screenshots of a real account.
 
 ## Local test
 
@@ -43,7 +46,14 @@ All data here is dummy data. This sample has been checked only with a local Node
 node tests/local_check.js
 ```
 
-The test loads `src/Code.gs` with stubbed GmailApp, DriveApp and SpreadsheetApp objects and the three dummy emails in `sample_data/emails.json`. It checks row counts, price check results, the mismatch log, the folder split by vendor and month, and that a second run does not process the same emails again.
+The script loads `src/Code.gs` with stubbed GmailApp, DriveApp, and SpreadsheetApp and the three dummy emails in `sample_data/emails.json`. When it passes, the console reports:
+
+- Run 1: 3 emails, 5 invoice log rows, 4 Drive files
+- Row checks: OK, MISMATCH, MISMATCH (14.60 vs 14.00 over 2%), OK, NOT IN PRICE LIST
+- Mismatch log: 2 rows; first listed difference 0.30
+- Run 2: labeled threads are not processed again
+- Run log: one summary row per run
+- Six assertions passed (same totals as `demo/local_check_output.txt`)
 
 ## License
 
